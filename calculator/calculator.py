@@ -29,8 +29,7 @@ num_char_map = {"0": zero, "1": one, "2": two, "3": three, "4": four, "5": five,
 num_gui_map1 = {0: "7", 1: "8", 2: "9"}
 num_gui_map2 = {0: "4", 1: "5", 2: "6"}
 num_gui_map3 = {0: "1", 1: "2", 2: "3"}
-test_var = "1234.56789"
-print(test_var[4])
+
 
 pygame.init()
 running = True
