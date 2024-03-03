@@ -16,11 +16,12 @@ nine = pygame.image.load("nine.png")
 dot = pygame.image.load("dot.png")
 calculator = pygame.image.load("calc_gui.png")
 calculator = pygame.transform.scale(calculator, (int(calculator.get_width() * 0.75), int(calculator.get_height() * 0.75)))
-cur_num_disp = []
+
 mouse_pos_x = 0
 mouse_pos_y = 0
 mouse_column = 0
 mouse_row = None
+cur_num_disp = []
 nums = ["", ""]
 cur_num = 0
 sol_num = 0
@@ -30,10 +31,8 @@ num_gui_map1 = {0: "7", 1: "8", 2: "9"}
 num_gui_map2 = {0: "4", 1: "5", 2: "6"}
 num_gui_map3 = {0: "1", 1: "2", 2: "3"}
 
-
 pygame.init()
 running = True
-
 
 while running:
     for event in pygame.event.get():
@@ -51,6 +50,7 @@ while running:
                 break
         else:
             break
+
     if pygame.mouse.get_pressed()[0] and not mouse_was_pressed:
         if mouse_row == 0:
             if mouse_column == 3:
@@ -81,7 +81,7 @@ while running:
         elif mouse_row == 5:
             if mouse_column == 1:
                 nums[cur_num] += "0"
-            if mouse_column == 2: # add check to make sure no previous .
+            if mouse_column == 2 and "." not in nums[cur_num]:
                 nums[cur_num] += "."
             elif mouse_column == 3:
                 if opperation == 1:
@@ -98,11 +98,12 @@ while running:
         mouse_was_pressed = True
     if not pygame.mouse.get_pressed()[0]:
         mouse_was_pressed = False
+
     if len(nums[0]) > 15:
         nums[0] = ""
     if len(nums[1]) > 15:
         nums[1] = ""
-    #print(nums[cur_num])
+    
     screen.fill((0, 0, 0)) 
     screen.blit(calculator, (0, 0))
     cur_num_disp.clear()
