@@ -13,7 +13,7 @@ six = pygame.image.load("six.png")
 seven = pygame.image.load("seven.png")
 eight = pygame.image.load("eight.png")
 nine = pygame.image.load("nine.png")
-dot = pygame.image.load("Dot.png")
+dot = pygame.image.load("dot.png")
 calculator = pygame.image.load("calc_gui.png")
 calculator = pygame.transform.scale(calculator, (int(calculator.get_width() * 0.75), int(calculator.get_height() * 0.75)))
 cur_num_disp = []
@@ -89,15 +89,17 @@ while running:
         elif mouse_row == 5:
             if mouse_column == 1:
                 nums[cur_num] += "0"
+            if mouse_column == 2: # add check to make sure no previous .
+                nums[cur_num] += "."
             elif mouse_column == 3:
                 if opperation == 1:
-                    sol_num = int(nums[0]) + int(nums[1])
+                    sol_num = float(nums[0]) + float(nums[1])
                 elif opperation == 2:
-                    sol_num = int(nums[0]) - int(nums[1])
+                    sol_num = float(nums[0]) - float(nums[1])
                 elif opperation == 3:
-                    sol_num = int(nums[0]) * int(nums[1])
+                    sol_num = float(nums[0]) * float(nums[1])
                 elif opperation == 4:
-                    sol_num = int(nums[0]) / int(nums[1])
+                    sol_num = float(nums[0]) / float(nums[1])
                 cur_num = 0
                 nums[0] = str(sol_num)
                 nums[1] = str("")
@@ -131,6 +133,8 @@ while running:
             cur_num_disp.append(eight)
         elif nums[cur_num][i] == "9":
             cur_num_disp.append(nine)
+        elif nums[cur_num][i] == ".":
+            cur_num_disp.append(dot)
     for i in range(12):
         if len(cur_num_disp) <= i:
             break
