@@ -22,12 +22,13 @@ mouse_pos_y = 0
 mouse_column = 0
 mouse_row = None
 nums = ["", ""]
-num1 = ""
-num2 = ""
 cur_num = 0
 sol_num = 0
 operation = 7
-
+num_char_map = {"0": zero, "1": one, "2": two, "3": three, "4": four, "5": five, "6": six, "7": seven, "8": eight, "9": nine, ".": dot}
+num_gui_map1 = {0: "7", 1: "8", 2: "9"}
+num_gui_map2 = {0: "4", 1: "5", 2: "6"}
+num_gui_map3 = {0: "1", 1: "2", 2: "3"}
 test_var = "1234.56789"
 print(test_var[4])
 
@@ -52,40 +53,32 @@ while running:
         else:
             break
     if pygame.mouse.get_pressed()[0] and not mouse_was_pressed:
+        if mouse_row == 0:
+            if mouse_column == 3:
+                cur_num = 0
+                nums = ["", ""]
         if mouse_row == 1:
             if mouse_column == 3:
                 cur_num = 1
                 opperation = 4
         elif mouse_row == 2:
-            if mouse_column == 0: 
-                nums[cur_num] += "7"
-            elif mouse_column == 1:
-                nums[cur_num] += "8"
-            elif mouse_column == 2:
-                nums[cur_num] += "9"
-            elif mouse_column == 3:
+            if mouse_column == 3:
                 cur_num = 1
                 opperation = 3
+            else:
+                nums[cur_num] += num_gui_map1[mouse_column]
         elif mouse_row == 3:
-            if mouse_column == 0: 
-                nums[cur_num] += "4"
-            elif mouse_column == 1:
-                nums[cur_num] += "5"
-            elif mouse_column == 2:
-                nums[cur_num] += "6"
-            elif mouse_column == 3:
+            if mouse_column == 3:
                 cur_num = 1
                 opperation = 2
+            else:
+                nums[cur_num] += num_gui_map2[mouse_column]
         elif mouse_row == 4:
-            if mouse_column == 0: 
-                nums[cur_num] += "1"
-            elif mouse_column == 1:
-                nums[cur_num] += "2"
-            elif mouse_column == 2:
-                nums[cur_num] += "3"
-            elif mouse_column == 3:
+            if mouse_column == 3:
                 cur_num = 1
                 opperation = 1
+            else:
+                nums[cur_num] += num_gui_map3[mouse_column]
         elif mouse_row == 5:
             if mouse_column == 1:
                 nums[cur_num] += "0"
@@ -106,36 +99,17 @@ while running:
         mouse_was_pressed = True
     if not pygame.mouse.get_pressed()[0]:
         mouse_was_pressed = False
+    if len(nums[0]) > 15:
+        nums[0] = ""
+    if len(nums[1]) > 15:
+        nums[1] = ""
     #print(nums[cur_num])
     screen.fill((0, 0, 0)) 
     screen.blit(calculator, (0, 0))
     cur_num_disp.clear()
     for i in range(len(nums[cur_num])):
-        #if len(nums[cur_num]) <= i:
-            #break
-        if nums[cur_num][i] == "0":
-            cur_num_disp.append(zero)
-        elif nums[cur_num][i] == "1":
-            cur_num_disp.append(one)
-        elif nums[cur_num][i] == "2":
-            cur_num_disp.append(two)
-        elif nums[cur_num][i] == "3":
-            cur_num_disp.append(three)
-        elif nums[cur_num][i] == "4":
-            cur_num_disp.append(four)
-        elif nums[cur_num][i] == "5":
-            cur_num_disp.append(five)
-        elif nums[cur_num][i] == "6":
-            cur_num_disp.append(six)
-        elif nums[cur_num][i] == "7":
-            cur_num_disp.append(seven)
-        elif nums[cur_num][i] == "8":
-            cur_num_disp.append(eight)
-        elif nums[cur_num][i] == "9":
-            cur_num_disp.append(nine)
-        elif nums[cur_num][i] == ".":
-            cur_num_disp.append(dot)
-    for i in range(12):
+        cur_num_disp.append(num_char_map[nums[cur_num][i]])
+    for i in range(15):
         if len(cur_num_disp) <= i:
             break
         screen.blit(cur_num_disp[i], (-200 + i * 30, -135))
