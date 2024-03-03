@@ -16,7 +16,7 @@ nine = pygame.image.load("nine.png")
 dot = pygame.image.load("Dot.png")
 calculator = pygame.image.load("calc_gui.png")
 calculator = pygame.transform.scale(calculator, (int(calculator.get_width() * 0.75), int(calculator.get_height() * 0.75)))
-cur_num_disp = [one, two, three, four, five, six, dot, seven, eight, nine, zero, one]
+cur_num_disp = []
 mouse_pos_x = 0
 mouse_pos_y = 0
 mouse_column = 0
@@ -27,6 +27,10 @@ num2 = ""
 cur_num = 0
 sol_num = 0
 operation = 7
+
+test_var = "1234.56789"
+print(test_var[4])
+
 pygame.init()
 running = True
 
@@ -100,10 +104,36 @@ while running:
         mouse_was_pressed = True
     if not pygame.mouse.get_pressed()[0]:
         mouse_was_pressed = False
-    print(nums[cur_num])
+    #print(nums[cur_num])
     screen.fill((0, 0, 0)) 
     screen.blit(calculator, (0, 0))
+    cur_num_disp.clear()
+    for i in range(len(nums[cur_num])):
+        #if len(nums[cur_num]) <= i:
+            #break
+        if nums[cur_num][i] == "0":
+            cur_num_disp.append(zero)
+        elif nums[cur_num][i] == "1":
+            cur_num_disp.append(one)
+        elif nums[cur_num][i] == "2":
+            cur_num_disp.append(two)
+        elif nums[cur_num][i] == "3":
+            cur_num_disp.append(three)
+        elif nums[cur_num][i] == "4":
+            cur_num_disp.append(four)
+        elif nums[cur_num][i] == "5":
+            cur_num_disp.append(five)
+        elif nums[cur_num][i] == "6":
+            cur_num_disp.append(six)
+        elif nums[cur_num][i] == "7":
+            cur_num_disp.append(seven)
+        elif nums[cur_num][i] == "8":
+            cur_num_disp.append(eight)
+        elif nums[cur_num][i] == "9":
+            cur_num_disp.append(nine)
     for i in range(12):
+        if len(cur_num_disp) <= i:
+            break
         screen.blit(cur_num_disp[i], (-200 + i * 30, -135))
 
     pygame.display.flip()
