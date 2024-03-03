@@ -21,7 +21,12 @@ mouse_pos_x = 0
 mouse_pos_y = 0
 mouse_column = 0
 mouse_row = None
-num1 = "0"
+nums = ["", ""]
+num1 = ""
+num2 = ""
+cur_num = 0
+sol_num = 0
+operation = 7
 pygame.init()
 running = True
 
@@ -43,13 +48,59 @@ while running:
         else:
             break
     if pygame.mouse.get_pressed()[0] and not mouse_was_pressed:
-        if mouse_column == 0:
-            if mouse_row == 2:
-                num1 += "7"
-                mouse_was_pressed = True
+        if mouse_row == 1:
+            if mouse_column == 3:
+                cur_num = 1
+                opperation = 4
+        elif mouse_row == 2:
+            if mouse_column == 0: 
+                nums[cur_num] += "7"
+            elif mouse_column == 1:
+                nums[cur_num] += "8"
+            elif mouse_column == 2:
+                nums[cur_num] += "9"
+            elif mouse_column == 3:
+                cur_num = 1
+                opperation = 3
+        elif mouse_row == 3:
+            if mouse_column == 0: 
+                nums[cur_num] += "4"
+            elif mouse_column == 1:
+                nums[cur_num] += "5"
+            elif mouse_column == 2:
+                nums[cur_num] += "6"
+            elif mouse_column == 3:
+                cur_num = 1
+                opperation = 2
+        elif mouse_row == 4:
+            if mouse_column == 0: 
+                nums[cur_num] += "1"
+            elif mouse_column == 1:
+                nums[cur_num] += "2"
+            elif mouse_column == 2:
+                nums[cur_num] += "3"
+            elif mouse_column == 3:
+                cur_num = 1
+                opperation = 1
+        elif mouse_row == 5:
+            if mouse_column == 1:
+                nums[cur_num] += "0"
+            elif mouse_column == 3:
+                if opperation == 1:
+                    sol_num = int(nums[0]) + int(nums[1])
+                elif opperation == 2:
+                    sol_num = int(nums[0]) - int(nums[1])
+                elif opperation == 3:
+                    sol_num = int(nums[0]) * int(nums[1])
+                elif opperation == 4:
+                    sol_num = int(nums[0]) / int(nums[1])
+                cur_num = 0
+                nums[0] = str(sol_num)
+                nums[1] = str("")
+        mouse_was_pressed = True
     if not pygame.mouse.get_pressed()[0]:
         mouse_was_pressed = False
-    print(num1)
+    print(nums[cur_num])
     screen.fill((0, 0, 0)) 
     screen.blit(calculator, (0, 0))
     for i in range(12):
